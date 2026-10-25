@@ -97,4 +97,4 @@ This is an educational project. A "Strong" rating is an estimate, not a guarante
 
 ## License
 
-Released under the MIT License.
+Released under the [MIT License](LICENSE).
