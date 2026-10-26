@@ -20,7 +20,6 @@ import urllib.request
 
 
 # SETTINGS
-# ----------------------------------------------------------------------
 COMMON_PASSWORDS = {
     "password", "123456", "12345678", "123456789", "1234567890", "qwerty",
     "qwerty123", "abc123", "111111", "000000", "letmein", "welcome",
@@ -44,7 +43,6 @@ SEQUENCE_SOURCES = [
 SYMBOLS = "!@#$%^&*()-_=+"
 
 # CHECKS
-# ----------------------------------------------------------------------
 def is_common_password(password):
     lowered = password.lower()
     trimmed = lowered.rstrip(string.digits + string.punctuation)
@@ -106,16 +104,15 @@ def check_breach(password):
 
 
 # ANALYSIS
-# ----------------------------------------------------------------------
 def analyze_password(password, personal_words):
     tips = []
     n = len(password)
 
-    # --- Length -------------------------------------------------------
+    #Length
     if n < 12:
         tips.append("Make it at least 12 characters (16+ is even better).")
 
-    # --- Character variety -------------------------------------------
+    #Character variety
     if not re.search(r"[a-z]", password):
         tips.append("Add lowercase letters (a-z).")
     if not re.search(r"[A-Z]", password):
@@ -125,7 +122,7 @@ def analyze_password(password, personal_words):
     if not re.search(r"[^A-Za-z0-9]", password):
         tips.append("Add symbols such as ! @ # $.")
 
-    # --- Weak patterns -----------------------------------------------
+    #Weak patterns
     common = is_common_password(password)
     if common:
         tips.append("This is a commonly used password (even with symbol "
@@ -143,13 +140,13 @@ def analyze_password(password, personal_words):
     if personal:
         tips.append(f"Remove personal info ('{personal}') from the password.")
 
-    # --- Breach check -------------------------------------------------
+    #Breach check
     breach_count = check_breach(password)
     if breach_count:
         tips.append("This password has leaked before. Never use it again, "
                     "and change it anywhere you've used it.")
 
-    # --- Strength (3 levels) -----------------------------------------
+    # Strength (3 levels) 
     # Count how many character types are used (lowercase, uppercase,
     # numbers, symbols): a number from 0 to 4.
     types_used = sum([
@@ -195,7 +192,6 @@ def generate_password(length=16):
 
 
 # OUTPUT
-# ----------------------------------------------------------------------
 def print_report(result):
     breach = result["breach_count"]
     if breach is None:
